@@ -6,21 +6,25 @@ const db = require("./db");
 const morgan = require("morgan");
 const app = express();
 
-
 // express middleware
 app.use(express.json());
 
-
 // Get all therapists
+// returns number of rows in array
 app.get("/api/v1/Therapists", async (req, res) => {
+  try {
   const results = await db.query("SELECT * FROM therapist");
   console.log(results);
   res.status(200).json({
     status: "success",
+    results: results.rows.length,
     data: {
-      therapists: ["Joey", "Tony"],
+      therapists: results.rows,
     },
   });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 // Get therapist by ID
@@ -66,7 +70,6 @@ app.delete("/api/v1/Therapists/:id", (req, res) => {
     status: "success",
   });
 });
-
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
