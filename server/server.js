@@ -32,7 +32,7 @@ app.get("/api/v1/Therapists/:id", async (req, res) => {
   console.log(req.params.id);
   try {
     // select * FROM therapist WHERE id = req.params.id;
-    const results = await db.query("select * from therapist where id = $1", [
+    const results = await db.query("SELECT * FROM therapist WHERE id = $1", [
       req.params.id,
     ]);
     res.status(200).json({
@@ -47,14 +47,33 @@ app.get("/api/v1/Therapists/:id", async (req, res) => {
 });
 
 // Create therapist
-app.post("/api/v1/Therapists", (req, res) => {
+app.post("/api/v1/Therapists", async (req, res) => {
   console.log(req.body);
-  res.status(201).json({
-    status: "success",
-    data: {
-      therapist: "Joey",
-    },
-  });
+
+  try {
+    const results = await db.query(
+      "INSERT INTO therapist (last_name, first_name, email, zip, address, bio, sliding_scale, cost) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) returning *",
+      [
+        req.body.last_name,
+        req.body.first_name,
+        req.body.email,
+        req.body.zip,
+        req.body.address,
+        req.body.bio,
+        req.sliding_scale,
+        req.body.cost,
+      ]
+    );
+    console.log(results);
+    res.status(201).json({
+      status: "success",
+      data: {
+        therapist: results.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 // Update therapist
