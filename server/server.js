@@ -3,7 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const db = require("./db");
 // morgan 3rd party middleware
-const morgan = require("morgan");
+//const morgan = require("morgan");
 const app = express();
 
 // express middleware
@@ -79,7 +79,6 @@ app.post("/api/v1/Therapists", async (req, res) => {
 // Update therapist
 // WHERE id = $1 because it is the primary key stored in the first row of the database
 app.put("/api/v1/Therapists/:id", async (req, res) => {
-  
   try {
     const results = await db.query(
       "UPDATE therapist SET last_name = $2, first_name = $3, email = $4, zip = $5, address = $6, bio = $7, sliding_scale = $8, cost = $9 WHERE id = $1 RETURNING *",
@@ -96,7 +95,7 @@ app.put("/api/v1/Therapists/:id", async (req, res) => {
       ]
     );
     console.log(results);
-    res.status(20).json({
+    res.status(200).json({
       status: "success",
       data: {
         therapist: results.rows[0],
@@ -108,13 +107,20 @@ app.put("/api/v1/Therapists/:id", async (req, res) => {
 });
 
 // Delete therapist
-app.delete("/api/v1/Therapists/:id", (req, res) => {
-  res.status(204).json({
-    status: "success",
-  });
+app.delete("/api/v1/Therapists/:id", async (req, res) => {
+  try {
+    const results = await db.query("DELETE FROM therapist WHERE id = $1", [
+        req.params.id
+      ]);
+    res.status(204).json({
+      status: "success",
+    });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
-const port = process.env.PORT || 3001;
-app.listen(port, () => {
-  console.log("Server is listening on port", port);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
 });
