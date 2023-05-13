@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const express = require("express");
+const db = require("./db");
 // morgan 3rd party middleware
 const morgan = require("morgan");
 const app = express();
@@ -11,9 +12,9 @@ app.use(express.json());
 
 
 // Get all therapists
-app.get("/api/v1/Therapists", (req, res) => {
-  console.log("It runs");
-
+app.get("/api/v1/Therapists", async (req, res) => {
+  const results = await db.query("SELECT * FROM therapist");
+  console.log(results);
   res.status(200).json({
     status: "success",
     data: {
