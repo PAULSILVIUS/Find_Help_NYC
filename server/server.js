@@ -13,36 +13,40 @@ app.use(express.json());
 // returns number of rows in array
 app.get("/api/v1/Therapists", async (req, res) => {
   try {
-  const results = await db.query("SELECT * FROM therapist");
-  console.log(results);
-  res.status(200).json({
-    status: "success",
-    results: results.rows.length,
-    data: {
-      therapists: results.rows,
-    },
-  });
+    const results = await db.query("SELECT * FROM therapist");
+    console.log(results);
+    res.status(200).json({
+      status: "success",
+      results: results.rows.length,
+      data: {
+        therapists: results.rows,
+      },
+    });
   } catch (err) {
     console.log(err);
   }
 });
 
-// Get therapist by ID
-app.get("/api/v1/Therapists/:id", (req, res) => {
-  console.log(req.params);
-
-  res.status(200).json({
-    status: "success",
-    data: {
-      therapist: "Joey",
-    },
-  });
+// Get a therapist (by id)
+app.get("/api/v1/Therapists/:id", async (req, res) => {
+  console.log(req.params.id);
+  try {
+    // select * FROM therapist WHERE id = req.params.id;
+    const results = await db.query("select * FROM therapist WHERE id = $1", [req.params.id]);
+    res.status(200).json({
+      status: "success",
+      data: {
+        therapist: results.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 // Create therapist
 app.post("/api/v1/Therapists", (req, res) => {
   console.log(req.body);
-  // status(201) for create
   res.status(201).json({
     status: "success",
     data: {
