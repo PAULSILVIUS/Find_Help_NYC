@@ -32,7 +32,9 @@ app.get("/api/v1/Therapists/:id", async (req, res) => {
   console.log(req.params.id);
   try {
     // select * FROM therapist WHERE id = req.params.id;
-    const results = await db.query("select * FROM therapist WHERE id = $1", [req.params.id]);
+    const results = await db.query("select * from therapist where id = $1", [
+      req.params.id,
+    ]);
     res.status(200).json({
       status: "success",
       data: {
