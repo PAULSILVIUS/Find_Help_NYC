@@ -77,16 +77,34 @@ app.post("/api/v1/Therapists", async (req, res) => {
 });
 
 // Update therapist
-app.put("/api/v1/Therapists/:id", (req, res) => {
-  console.log(req.params.id);
-  console.log(req.body);
-
-  res.status(200).json({
-    status: "success",
-    data: {
-      therapist: "Joey",
-    },
-  });
+// WHERE id = $1 because it is the primary key stored in the first row of the database
+app.put("/api/v1/Therapists/:id", async (req, res) => {
+  
+  try {
+    const results = await db.query(
+      "UPDATE therapist SET last_name = $2, first_name = $3, email = $4, zip = $5, address = $6, bio = $7, sliding_scale = $8, cost = $9 WHERE id = $1 RETURNING *",
+      [
+        req.params.id,
+        req.body.last_name,
+        req.body.first_name,
+        req.body.email,
+        req.body.zip,
+        req.body.address,
+        req.body.bio,
+        req.body.sliding_scale,
+        req.body.cost,
+      ]
+    );
+    console.log(results);
+    res.status(20).json({
+      status: "success",
+      data: {
+        therapist: results.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 // Delete therapist
