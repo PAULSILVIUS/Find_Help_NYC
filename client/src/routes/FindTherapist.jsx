@@ -2,7 +2,7 @@ import React from 'react'
 
 const Therapist = () => {
   return (
-    <div>Therapist</div>
+    <div>Therapist </div>
   )
 }
 
