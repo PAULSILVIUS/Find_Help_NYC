@@ -1,11 +1,13 @@
 require("dotenv").config();
-
+const cors = require("cors");
 const express = require("express");
 const db = require("./db");
 // morgan 3rd party middleware
 //const morgan = require("morgan");
 const app = express();
 
+//cors middleware used for cross origin requests
+app.use(cors());
 // express middleware
 app.use(express.json());
 
