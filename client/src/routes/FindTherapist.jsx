@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
+import Header from '../components/header';
 
 const Therapist = () => {
   return (
-    <div>Therapist </div>
+    <Header/>
   )
 }
 

@@ -1,8 +1,9 @@
 import React from 'react'
+import Header from '../components/header'
 
 const Update = () => {
   return (
-    <div>Update</div>
+    <Header/>
   )
 }
 
