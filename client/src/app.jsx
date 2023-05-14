@@ -3,11 +3,13 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./routes/Home";
 import FindTherapist from "./routes/FindTherapist";
 import Update from "./routes/Update";
+import { TContextProvider } from "./context/TContext";
 
 
 const App = () => {
   return (
-    <div>
+    <TContextProvider>
+    <div className="container">
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />
@@ -16,6 +18,7 @@ const App = () => {
         </Switch>
       </Router>
     </div>
+    </TContextProvider>
   );
 };
 
