@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 
-const TherapistList = () => {
+const therapistlist = () => {
   return (
-    <div>TherapistList</div>
+    <div>therapistlist</div>
   )
 }
 
-export default TherapistList
+export default therapistlist
