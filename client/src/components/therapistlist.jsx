@@ -2,13 +2,15 @@ import React, { useEffect } from "react";
 import TherapistFinder from "../apis/TherapistFinder";
 
 const Therapistlist = () => {
-  useEffect( async () => {
+  useEffect(() => {
     const fetchData = async () => {
     try {
       const response = await TherapistFinder.get("/");
       console.log(response);
     } catch (err) {}
     };
+
+    fetchData();
   }, []);
 
   return (
