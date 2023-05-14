@@ -4,7 +4,10 @@ import AddTherapist from '../components/addtherapist';
 
 const Update = () => {
   return (
+    <div>
+    <Header/>
     <AddTherapist/>
+    </div>
   )
 }
 
