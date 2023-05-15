@@ -1,4 +1,4 @@
-const { Pool } = require('pg')
+const { Pool } = require('pg');
  
 // connection of db on .env file
 const pool = new Pool()
