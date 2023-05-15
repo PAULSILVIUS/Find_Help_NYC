@@ -9,7 +9,7 @@ import { TherapistsContextProvider } from "./context/TherapistsContext";
 const App = () => {
   return (
     <TherapistsContextProvider>
-    <div>
+    <div className="container">
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />

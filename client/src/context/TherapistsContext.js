@@ -6,7 +6,7 @@ export const TherapistsContextProvider = (props) => {
     const [therapists, setTherapists] = useState([]);
 
     return (
-            <TherapistsContext.Provider value={{therapists: therapists, setTherapists: setTherapists}}>
+            <TherapistsContext.Provider value={{therapists, setTherapists}}>
                 {props.children}
             </TherapistsContext.Provider>
         );
