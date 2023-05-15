@@ -1,12 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import TherapistFinder from "../apis/TherapistFinder";
+import { TherapistsContext } from "../context/TherapistsContext";
 
-const Therapistlist = () => {
+const Therapistlist = (props) => {
+  const {therapists, setTherapists} = useContext(TherapistsContext);
   useEffect(() => {
     const fetchData = async () => {
     try {
       const response = await TherapistFinder.get("/");
-      console.log(response);
+      setTherapists =(response.data.data.therapists);
     } catch (err) {}
     };
 
