@@ -3,12 +3,12 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./routes/Home";
 import FindTherapist from "./routes/FindTherapist";
 import Update from "./routes/Update";
-import { TContextProvider } from "./context/TContext";
+import { TherapistsContextProvider } from "./context/TherapistsContext";
 
 
 const App = () => {
   return (
-    <TContextProvider>
+    <TherapistsContextProvider>
     <div className="container">
       <Router>
         <Switch>
@@ -18,7 +18,7 @@ const App = () => {
         </Switch>
       </Router>
     </div>
-    </TContextProvider>
+    </TherapistsContextProvider>
   );
 };
 
